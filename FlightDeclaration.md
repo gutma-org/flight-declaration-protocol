@@ -28,8 +28,10 @@ while allowing each UTM Provider to retain ownership of their customer data._
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
+ 
+[TOC]
 
-## <a id="Background"></a> 1 Background
+## Background
 
 Altitude Angel is committed to the advancement and adoption of technical systems and standards 
 which promote the safe integration of drones into the airspace.
@@ -38,7 +40,7 @@ As part of our commitment to this goal, we have prepared this protocol specifica
 vital safety problem affecting all UTM Providers today: the ability to securely share important 
 safety information with each other, while retaining strict privacy controls.
 
-## <a id="Abstract"></a>2 Abstract
+## Abstract
 
 With the increasing number of drone flights, a core challenge for any UTM Provider is having access to 
 sufficient data to provide a comprehensive air-situation picture.
@@ -63,48 +65,10 @@ Flight-related safety data can be exchanged between UTM Providers in a way that 
 data to be exchanged, while permitting each individual UTM Provider to retain ownership and control 
 of their data.
 
-## <a id="Table-of-Contents"></a>3 Table of Contents
+    
+## Introduction
 
-1        [Background](#Background)        
-2        [Abstract](#Abstract)        
-3        [Table of Contents](#Table-of-Contents)        
-4        [Introduction](#Introduction)    
-4.1        Key Assumptions       
-4.2        Definitions        
-4.3        Requirements       
-4.4        Mechanics        
-4.5        Out of Scope     
-5        [Standard Concepts](#Concepts)  
-5.1        Security        
-5.2        Versioning        
-5.3        Dates &amp; Times        
-5.4        Geospatial Data        
-5.5        Distances        
-5.6        Flight Identifier        
-5.7        Contact URL        
-6        [Reliability &amp; Scalability](#Scalability)        
-6.1        Atomic updates        
-6.2        Sequence Number        
-6.3        Deletion        
-6.4        Retries        
-6.5        Restoring Lost State        
-6.6        EndPoint Address        
-6.7        Response codes        
-6.8        Example message flows        
-7        [Types](#Types)        
-7.1        message        
-7.2        altitudeDatum enum        
-7.3        altitude        
-7.4        flightPart        
-7.5        ident        
-7.6        operationMode enum        
-7.7        flightDeclaration        
-7.8        error        
-8        [References](#References)        
-
-## <a id="Introduction"></a>4 Introduction
-
-### 4.1 Key Assumptions
+### Key Assumptions
 
 In the specification of this protocol, we have made several key assumptions:
 
@@ -127,7 +91,7 @@ As core design objectives, we have sought to base the protocol on an architectur
 low-latency and high-scale, and permit the exchange of critical flight safety data between UTM Providers 
 who wish to retain ownership and control of their user data.
 
-### 4.2 Definitions
+### Definitions
 
 In this specification, we introduce and propose the following definitions:
 
@@ -141,19 +105,19 @@ In this specification, we introduce and propose the following definitions:
 | User/Pilot | The party declaring the flight (i.e. a customer of an Originating Party). |
 | Very low altitude | Describes the airspace below which General Aviation is not permitted to operate – typically below 500 feet AGL. |
 
-### 4.3 Requirements
+### Requirements
 
 Additionally, the words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", 
 "RECOMMENDED", "MAY", and "OPTIONAL" in the remainder of this document are to be interpreted as 
 described in RFC 2119 [[l]](#Ref-1).
 
-### 4.4 Mechanics
+### Mechanics
 
 For each flight declaration received from their Users, the Originating Party makes an HTTP POST, containing the 
 Flight Declarations data, to all the Interested Parties&#39; registered endpoints. This POST contains all the 
 details of the flight declaration in a JSON [[2]](#Ref-2) serialized message object.
 
-### 4.5 Out of Scope
+### Out of Scope
 
 The following areas are regarded as out of scope from this specification, as their definition will necessarily 
 depend on implementing parties&#39; business models, they are effectively implementation details, where 
@@ -161,7 +125,7 @@ practical, the authors have attempted to address any "out of scope" items by pro
 that early adopters/testers of this specification can use to practically 
 verify the suitability of this protocol against its objectives.
 
-#### 4.5.1 Centralised pub/sub
+#### Centralised pub/sub
 
 The mechanism where interested parties subscribe for updates. This specification does not define a programmatic 
 method to subscribe to notifications. The expectation is that there will need to be a commercial relationship 
@@ -176,27 +140,27 @@ operating within a specific geographic region
 - Originating Parties need maintain separate systems and commercial relationships with a changing (growing)
  list of Interested Parties.
 
-#### 4.5.2 Authorization
+#### Authorization
 
 The allocation of credentials to interested parties is regarded as part of the subscription process resulting in the 
 Authorization and Authentication for the endpoint to regarded as out of scope. Organizations implementing this standard 
 should be aware of the reputational damage that data breaches and unauthorized modification of data will result in and
 must ensure their endpoints are secured to a level that they feel appropriate.
 
-#### 4.5.3 Message verification
+#### Message verification
 
 The protocol recommends – but does not presently mandate – that the parties perform verification of each message. 
 It is expected that this could take the form of a cryptographically-signed hash included as part of the HTTP headers.
 
-## <a id="Concepts"></a>5 Standard Concepts
+## Standard Concepts
 
-### 5.1 Security
+### Security
 
 While this document does not mandate how implementers perform authentication and authorization, it does mandate 
 that HTTP over a minimum of TLS 1.2 [[3]](#Ref-3) must be used for all flight data notifications between 
 originating and interested parties.
 
-### 5.2 Versioning
+### Versioning
 
 All version numbers must follow the Semantic Versioning 2.0.0 standard [[4]](#Ref-4)
 
@@ -210,7 +174,7 @@ All version numbers must follow the Semantic Versioning 2.0.0 standard [[4]](#Re
 > 
 > _Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format._
 
-### 5.3 Dates &amp; Times
+### Dates &amp; Times
 
 Dates and times will follow the **ISO-8601** **[[5]](#Ref-5)** formatting standard. Local times are not supported; all times 
 must be in UTC or have a time zone offset specified.
@@ -227,7 +191,7 @@ as a _datetime_.
 
 No guarantees that a timezone offset will be preserved should be made.
 
-### 5.4 Geospatial Data
+### Geospatial Data
 
 Geospatial data must be described using a geometry object as defined in the _GeoJSON_ specification [[6]](#Ref-6) with 
 the following specific requirements
@@ -240,18 +204,18 @@ units of decimal degrees
 Latitude and Longitude should not be specified to more than 8 decimal places. This gives an accuracy of approximately 
 1.1 mm at the equator making any further digits superfluous.
 
-### 5.5 Distances
+### Distances
 
 All distances (both horizontal and vertical) are specified in metres.
 
-### 5.6 Flight Identifier
+### Flight Identifier
 
 This is a unique identifier generated by the Originating Party that should provide an _anonymous_ identifier for this flight. 
 The Originating Party must be able to use this identifier to identify the original records that resulted in this flight. 
 Together with knowledge of who the Originating Party is, the flight identifier constitutes a globally unique identifier 
 for this flight. i.e. Identifiers may be shared across originators, but the must be unique within an originator.
 
-### 5.7 Contact URL
+### Contact URL
 
 As part of the flight declaration, the Originating Party must provide a URL that can be used to initiate contact with 
 the end User. This mechanism ensures that the drone pilot can be contacted (subject to the correct legal provisions) 
@@ -265,7 +229,7 @@ this functionality, without requiring the UTM Provider to also publish contact d
 It is expected that this URL would resolve to an HTML Form for a human to complete. It is not expected that this URL 
 would be shared with any of an interested party&#39;s users without some form of authentication and auditing.
 
-## <a id="Scalability"></a>6 Reliability &amp; Scalability
+## Reliability &amp; Scalability
 
 To ensure that this protocol is applicable in scalable, asynchronous distributed systems, it has been designed to 
 push notifications to Interested Parties rather than requiring them to continuously poll for flights updates.
@@ -273,14 +237,14 @@ push notifications to Interested Parties rather than requiring them to continuou
 The protocol provides support for missing messages, out-of-order delivery of messages and multiple sends through 
 the following mechanisms.
 
-### 6.1 Atomic updates
+### Atomic updates
 
 When a Flight Declaration is updated by an Originating Party, that _entire_ Flight Declaration record will be sent. 
 This allows the receiving service to replace the record in its entirety and allows the system to self-heal in the 
 event of a missing message. This also removes the need to differentiate from a create and update – both are handled 
 in the same way.
 
-### 6.2 Sequence Number
+### Sequence Number
 
 To account for the possibility of messages being delivered out-of-order, a sequence number must be passed with each 
 record. When a flight declaration is updated, the sequence number must be increased to make it numerically greater 
@@ -290,7 +254,7 @@ process a delayed update message.
 Sequence numbers do not have to be consecutive, nor do they need to start from zero, however they do need to be an 
 unsigned integer – i.e. a whole number greater than or equal to zero.
 
-### 6.3 Deletion
+### Deletion
 
 To delete a Flight Declaration a null flightDeclaration element should be sent in the [message](#message). To 
 allow this protocol to be extended to allow other message payloads in the message type, the flightDeclaration member 
@@ -299,7 +263,7 @@ must be set to null, omitting it is not permitted. The flightId must be provided
 It is regarded as valid to update a previously deleted record, providing that the sequence number of the update message 
 is greater than the delete message&#39;s.
 
-### 6.4 Retries
+### Retries
 
 In the event of a HTTP status code indicating failure or a failure to receive a valid HTTP response from the 
 Interested Party&#39;s endpoint, the Originating Party should continue to retry to send the message until the flight&#39;s 
@@ -309,7 +273,7 @@ The Interested Party can set the [shouldRetry](#errorMessage) flag in the return
 to process and having the Originating Party resend the message unchanged will not help mitigate this problem – e.g. if the 
 message fails validation.
 
-### 6.5 Restoring Lost State
+### Restoring Lost State
 
 The Originating Party must provide a way for an Interested Party to &#39;reset&#39; their subscription with the Originating Party. 
 This causes the resend of all the Flight Declarations that are currently available from the Originating Party. The Interested 
@@ -319,12 +283,12 @@ The Originating Party may wish to limit, through their commercial agreement, how
 The Originating Party may wish to provide a version of this functionality that replays all messages that have been sent 
 since the last successfully received message – identified by a flightId and sequenceNumber.
 
-### 6.6 EndPoint Address
+### EndPoint Address
 
 The address of the notification endpoint will be provided by the Interested Party at subscription time. For this reason, 
 no URL is provided in this spec.
 
-### 6.7 Response codes
+### Response codes
 
 This specification does not preclude the use of, or override any HTTP response codes, but the following codes should be 
 returned for these reasons:
@@ -339,7 +303,7 @@ returned for these reasons:
 A JSON-serialized error message should be returned in the response body with the shouldRetry property set to the 
 appropriate value – e.g. set to false if the message failed validation.
 
-### 6.8 Example message flows
+### Example message flows
 
 **Example 1**
 
@@ -368,8 +332,8 @@ Below is a set of messages that would be sent for a flight that is not planned i
 - Initial declaration of flight. The sequence number is 0, the start date and the take-off time are set to that actual time 
 of take-off.
 
-## <a id="Types"></a>7 Types
-### <a id="message"></a>7.1 message
+## Types
+### 7.1 message
 
 The primary entity exchanged between Originating and Interested Parties.
 
@@ -380,7 +344,7 @@ The primary entity exchanged between Originating and Interested Parties.
 | **flightDeclaration** | A flightDeclaration object describing this proposed flight. To delete a flight, this field should be null. | flightDeclaration |
 | **version** | The version of this protocol that the message has been implemented from. | string - currently "0.2.0" |
 
-### 7.1.1Example
+### Example
 
     {
         "flightId": "5a7f3377-b991-4cc8-af2d-379d57f786d1",
@@ -389,7 +353,7 @@ The primary entity exchanged between Originating and Interested Parties.
         "version": "1.0.0"
     }
 
-### 7.2 altitudeDatum enum
+### altitudeDatum enum
 
 This specification defines the following altitude datums, however specific messages may not allow altitudes to be defined 
 using certain datums (e.g. it makes no sense to declare the maximum altitude of a pre-planned very low altitude flight 
@@ -402,7 +366,7 @@ relative to the SPS datum). The following string values are supported for datums
 | **sps** | Altitude where a barometric altimeter would be set to the Standard Pleasure Setting. This is effectively of the Flight Level multiplied by 100 and converted to metres. |
 | **wgs84** | Distance above the WGS 84 datum. |
 
-### 7.3 altitude
+### altitude
 
 Altitude is specified in Metres above the specified datum. The altitude type combines both values.
 
@@ -411,12 +375,12 @@ Altitude is specified in Metres above the specified datum. The altitude type com
 | **metres** | The height above the specified datum in metres | number |
 | **datum** | The datum that describes what the altitude measurement is relative to | altitudeDatum { &#39;agl&#39;, &#39;amsl&#39;, &#39;sps&#39;, &#39;wgs84&#39; } |
 
-#### 7.3.1 Note
+#### Note
 
 It would be advisable to discuss further the potential to standardise upon known datums for specific altitude types 
 to smooth implementation of the protocol.
 
-#### 7.3.2 Example
+#### Example
 
 An altitude 152.4 metres above ground level would be represented by the following entity:
 
@@ -425,7 +389,7 @@ An altitude 152.4 metres above ground level would be represented by the followin
         "datum": "agl"
     }
 
-### 7.4 flightPart
+### flightPart
 
 A flight consists of one or more parts. Each part has a start and end time as well as a geography and maximum altitude.
 
@@ -437,7 +401,7 @@ A flight consists of one or more parts. Each part has a start and end time as we
 | **endTime** | The time that the flight is expected to be completed by. This must always be greater than startTime. | datetime |
 | **maxAltitude** | The maximum altitude that the drone will achieve during the _flightPart_. | altitude |
 
-#### 7.4.1 Notes
+#### Notes
 
 - No parts of a declared flight can have overlapping start and end times.
 - For the geography, a:
@@ -449,7 +413,7 @@ should be supported. This allows the geography to define parts of the area where
 - When the geography is a _LineString_, it may have more than two points.
 - For version 1.0 of the specification, neither sps nor amsl are supported datums for maxAltitude.
 
-#### 7.4.2 Example
+#### Example
 
 The following example shows a flight part defining a 30-minute flight with a polygonal area of operation.
 
@@ -475,7 +439,7 @@ The following example shows a flight part defining a 30-minute flight with a pol
         }
     }
 
-### 7.5 ident
+### ident
 
 To allow a flight to be correlated with positional data from other sources (e.g. ADSB or RADAR) a flight declaration can 
 include one or more _idents_ that will be associated with this flight.
@@ -485,21 +449,21 @@ include one or more _idents_ that will be associated with this flight.
 | **method** | The name of the technology providing the ident | string { "adsb", "flarm" } |
 | **ident** | The identifier in the specified data source that will identify this flight. | string |
 
-### 7.5.1Notes
+### Notes
 
 It is recognised that not all idents that a drone may be allocated will be available at the time of flight declaration. 
 If a drone is allocated an ident it should update the flight declaration to include the new ident.
 
 It must not be treated as an error if the Interested Party does not recognise a method that is provided.
 
-### 7.5.2Example
+### Example
 
     {
         "method": "adsb",
         "ident": "4840D6"
     }
 
-### 7.6 operationMode enum
+### operationMode enum
 
 | Datum | Description |
 | --- | --- |
@@ -510,7 +474,7 @@ It must not be treated as an error if the Interested Party does not recognise a 
 
 
 
-### 7.7 flightDeclaration
+### flightDeclaration
 
 | Name | Description | Type |
 | --- | --- | --- |
@@ -524,7 +488,7 @@ It must not be treated as an error if the Interested Party does not recognise a 
 | **actualTakeOffTime** | The time the flight took off. This value can be null or omitted if the take-off time is not known | datetime _[optional]_ |
 | **actualLandingTime** | The time the flight completed. This value can be null or omitted if the landing time is not known | datetime _[optional]_ |
 
-#### 7.7.1 Notes
+#### Notes
 
 It is expected that a future version of this specification will include a telemetryEndPoint field. This is an endpoint 
 that an interest party would be able to call to get live telemetry while the flight was in progress.
@@ -532,7 +496,7 @@ that an interest party would be able to call to get live telemetry while the fli
 In future, we recommend moving to a more structured taxonomy of flight purposes however this is outside the scope of our 
 initial draft and we would welcome input focused in this area.
 
-#### 7.7.2 Examples
+#### Examples
 
 **Example 1:** A VLOS survey flight with a polygonal area of operation.
 
@@ -611,7 +575,7 @@ after the return leg. This drone is expecting to provide telemetry during the fl
         "operationMode": "bvlos"
     }
 
-### <a id="errorMessage"></a> 7.8 error
+### error
 
 | Name | Description | Type |
 | --- | --- | --- |
@@ -626,7 +590,7 @@ after the return leg. This drone is expecting to provide telemetry during the fl
         "shouldRetry": false
     }
 
-## <a id="References"></a>8 References
+## References
 |||
 | --- | --- |
 | <a id="Ref-1"></a>[1] | "RFC 2119: Key words for use in RFCs to Indicate Requirement Levels" - [https://www.ietf.org/rfc/rfc2119.txt](#https://www.ietf.org/rfc/rfc2119.txt) |
