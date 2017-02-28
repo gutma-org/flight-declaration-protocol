@@ -29,7 +29,7 @@ while allowing each UTM Provider to retain ownership of their customer data._
  See the License for the specific language governing permissions and
  limitations under the License.
 
-## <a id="Background"></a> 1 Background
+## 1 Background
 
 Altitude Angel is committed to the advancement and adoption of technical systems and standards 
 which promote the safe integration of drones into the airspace.
@@ -38,7 +38,7 @@ As part of our commitment to this goal, we have prepared this protocol specifica
 vital safety problem affecting all UTM Providers today: the ability to securely share important 
 safety information with each other, while retaining strict privacy controls.
 
-## <a id="Abstract"></a>2 Abstract
+## 2 Abstract
 
 With the increasing number of drone flights, a core challenge for any UTM Provider is having access to 
 sufficient data to provide a comprehensive air-situation picture.
@@ -54,7 +54,7 @@ benefit **all** UTM Providers offering similar services by sharing key elements 
 For example:
 
 In a common scenario, Provider A has a customer base which is busy planning/conducting drone flights and 
-tracking these in Provider A&#39;s system. Provider B offers a similar service within the same geography, 
+tracking these in Provider A's system. Provider B offers a similar service within the same geography, 
 however neither Party A nor Party B can offer their customers a comprehensive air picture because each 
 hold their own data in private silos.
 
@@ -63,7 +63,7 @@ Flight-related safety data can be exchanged between UTM Providers in a way that 
 data to be exchanged, while permitting each individual UTM Provider to retain ownership and control 
 of their data.
 
-## <a id="Table-of-Contents"></a>3 Table of Contents
+## 3 Table of Contents
 
 1        [Background](#Background)        
 2        [Abstract](#Abstract)        
@@ -77,12 +77,12 @@ of their data.
 5        [Standard Concepts](#Concepts)  
 5.1        Security        
 5.2        Versioning        
-5.3        Dates &amp; Times        
+5.3        Dates & Times        
 5.4        Geospatial Data        
 5.5        Distances        
 5.6        Flight Identifier        
 5.7        Contact URL        
-6        [Reliability &amp; Scalability](#Scalability)        
+6        [Reliability & Scalability](#Scalability)        
 6.1        Atomic updates        
 6.2        Sequence Number        
 6.3        Deletion        
@@ -102,7 +102,7 @@ of their data.
 7.8        error        
 8        [References](#References)        
 
-## <a id="Introduction"></a>4 Introduction
+## 4 Introduction
 
 ### 4.1 Key Assumptions
 
@@ -136,7 +136,7 @@ In this specification, we introduce and propose the following definitions:
 | Originating Party | The UTM Provider who wishes to publish data to other members |
 | Interested Party | Any party receiving a flight declaration that is not the Originating Party. For the purposes of this specification, this party is essentially the "consumer" of data published by Originating Parties. |
 | Flight declaration | Information, originating from a user, that describes their intent to fly or that they are flying within the notified region. Only one drone can participate in a flight declaration at any one time. |
-| Operating Area/Notified Area | The area that a drone pilot is or is planning to operate in. Unless the operator defines a more specific area, this can be assumed to be a circle around the operator&#39;s location with a radius equal to the maximum distance the operator is permitted to fly. |
+| Operating Area/Notified Area | The area that a drone pilot is or is planning to operate in. Unless the operator defines a more specific area, this can be assumed to be a circle around the operator's location with a radius equal to the maximum distance the operator is permitted to fly. |
 | Route | One or more consecutive straight lines the drone will follow. |
 | User/Pilot | The party declaring the flight (i.e. a customer of an Originating Party). |
 | Very low altitude | Describes the airspace below which General Aviation is not permitted to operate – typically below 500 feet AGL. |
@@ -150,13 +150,13 @@ described in RFC 2119 [[l]](#Ref-1).
 ### 4.4 Mechanics
 
 For each flight declaration received from their Users, the Originating Party makes an HTTP POST, containing the 
-Flight Declarations data, to all the Interested Parties&#39; registered endpoints. This POST contains all the 
+Flight Declarations data, to all the Interested Parties' registered endpoints. This POST contains all the 
 details of the flight declaration in a JSON [[2]](#Ref-2) serialized message object.
 
 ### 4.5 Out of Scope
 
 The following areas are regarded as out of scope from this specification, as their definition will necessarily 
-depend on implementing parties&#39; business models, they are effectively implementation details, where 
+depend on implementing parties' business models, they are effectively implementation details, where 
 practical, the authors have attempted to address any "out of scope" items by providing prototype implementations 
 that early adopters/testers of this specification can use to practically 
 verify the suitability of this protocol against its objectives.
@@ -188,7 +188,7 @@ must ensure their endpoints are secured to a level that they feel appropriate.
 The protocol recommends – but does not presently mandate – that the parties perform verification of each message. 
 It is expected that this could take the form of a cryptographically-signed hash included as part of the HTTP headers.
 
-## <a id="Concepts"></a>5 Standard Concepts
+## 5 Standard Concepts
 
 ### 5.1 Security
 
@@ -263,9 +263,9 @@ through a system boundary. This mechanism allows UTM Providers to satisfy propos
 this functionality, without requiring the UTM Provider to also publish contact data for its users.
 
 It is expected that this URL would resolve to an HTML Form for a human to complete. It is not expected that this URL 
-would be shared with any of an interested party&#39;s users without some form of authentication and auditing.
+would be shared with any of an interested party's users without some form of authentication and auditing.
 
-## <a id="Scalability"></a>6 Reliability &amp; Scalability
+## 6 Reliability & Scalability
 
 To ensure that this protocol is applicable in scalable, asynchronous distributed systems, it has been designed to 
 push notifications to Interested Parties rather than requiring them to continuously poll for flights updates.
@@ -297,12 +297,12 @@ allow this protocol to be extended to allow other message payloads in the messag
 must be set to null, omitting it is not permitted. The flightId must be provided and the sequence number increased.
 
 It is regarded as valid to update a previously deleted record, providing that the sequence number of the update message 
-is greater than the delete message&#39;s.
+is greater than the delete message's.
 
 ### 6.4 Retries
 
 In the event of a HTTP status code indicating failure or a failure to receive a valid HTTP response from the 
-Interested Party&#39;s endpoint, the Originating Party should continue to retry to send the message until the flight&#39;s 
+Interested Party's endpoint, the Originating Party should continue to retry to send the message until the flight&#39;s 
 endTime has passed. It is expected that there will be a delay between reties.
 
 The Interested Party can set the [shouldRetry](#errorMessage) flag in the returned error message to false if it receives a message it is unable 
@@ -311,7 +311,7 @@ message fails validation.
 
 ### 6.5 Restoring Lost State
 
-The Originating Party must provide a way for an Interested Party to &#39;reset&#39; their subscription with the Originating Party. 
+The Originating Party must provide a way for an Interested Party to 'reset' their subscription with the Originating Party. 
 This causes the resend of all the Flight Declarations that are currently available from the Originating Party. The Interested 
 Party should use this mechanism if it needs to populate their system after creating a subscription or after extensive downtime. 
 The Originating Party may wish to limit, through their commercial agreement, how often this method can be invoked.
@@ -368,8 +368,8 @@ Below is a set of messages that would be sent for a flight that is not planned i
 - Initial declaration of flight. The sequence number is 0, the start date and the take-off time are set to that actual time 
 of take-off.
 
-## <a id="Types"></a>7 Types
-### <a id="message"></a>7.1 message
+## 7 Types
+### 7.1 message
 
 The primary entity exchanged between Originating and Interested Parties.
 
@@ -409,7 +409,7 @@ Altitude is specified in Metres above the specified datum. The altitude type com
 | Name | Description | Type |
 | --- | --- | --- |
 | **metres** | The height above the specified datum in metres | number |
-| **datum** | The datum that describes what the altitude measurement is relative to | altitudeDatum { &#39;agl&#39;, &#39;amsl&#39;, &#39;sps&#39;, &#39;wgs84&#39; } |
+| **datum** | The datum that describes what the altitude measurement is relative to | altitudeDatum { "agl", "amsl", "sps", "wgs84" } |
 
 #### 7.3.1 Note
 
@@ -444,7 +444,7 @@ A flight consists of one or more parts. Each part has a start and end time as we
   - _Polygon_ is used to define the area where a drone is expected to operate.
   - _LineString_ should be used when there is a defined route that the drone is expected to follow.
   - No other GeoJSON types are supported.
-- When the geography is a _Polygon_, multiple linear rings representing the exterior ring (and optionally &#39;holes&#39;) 
+- When the geography is a _Polygon_, multiple linear rings representing the exterior ring (and optionally 'holes') 
 should be supported. This allows the geography to define parts of the area where the drone will not operate.
 - When the geography is a _LineString_, it may have more than two points.
 - For version 1.0 of the specification, neither sps nor amsl are supported datums for maxAltitude.
@@ -611,7 +611,7 @@ after the return leg. This drone is expecting to provide telemetry during the fl
         "operationMode": "bvlos"
     }
 
-### <a id="errorMessage"></a> 7.8 error
+### 7.8 error
 
 | Name | Description | Type |
 | --- | --- | --- |
@@ -626,12 +626,12 @@ after the return leg. This drone is expecting to provide telemetry during the fl
         "shouldRetry": false
     }
 
-## <a id="References"></a>8 References
+## 8 References
 |||
 | --- | --- |
-| <a id="Ref-1"></a>[1] | "RFC 2119: Key words for use in RFCs to Indicate Requirement Levels" - [https://www.ietf.org/rfc/rfc2119.txt](#https://www.ietf.org/rfc/rfc2119.txt) |
-| <a id="Ref-2"></a>[2] | "RFC 7159: The JavaScript Object Notation (JSON) Data Interchange Format" - [https://tools.ietf.org/html/rfc7159](#https://tools.ietf.org/html/rfc7159) |
-| <a id="Ref-3"></a>[3] | "RFC 2818: HTTP Over TLS" - [https://tools.ietf.org/html/rfc2818](#https://tools.ietf.org/html/rfc2818) |
-| <a id="Ref-4"></a>[4] | "Semantic Versioning 2.0.0" - [http://semver.org/](#http://semver.org/) |
-| <a id="Ref-5"></a>[5] | "ISO 8601 - Date and time format" - [http://www.iso.org/iso/home/standards/iso8601.htm](#http://www.iso.org/iso/home/standards/iso8601.htm) |
-| <a id="Ref-6"></a>[6] | "RFC 7946: The GeoJSON Format" - [https://tools.ietf.org/html/rfc7946](#https://tools.ietf.org/html/rfc7946)|
+| [1] | "RFC 2119: Key words for use in RFCs to Indicate Requirement Levels" - [https://www.ietf.org/rfc/rfc2119.txt](#https://www.ietf.org/rfc/rfc2119.txt) |
+| [2] | "RFC 7159: The JavaScript Object Notation (JSON) Data Interchange Format" - [https://tools.ietf.org/html/rfc7159](#https://tools.ietf.org/html/rfc7159) |
+| [3] | "RFC 2818: HTTP Over TLS" - [https://tools.ietf.org/html/rfc2818](#https://tools.ietf.org/html/rfc2818) |
+| [4] | "Semantic Versioning 2.0.0" - [http://semver.org/](#http://semver.org/) |
+| [5] | "ISO 8601 - Date and time format" - [http://www.iso.org/iso/home/standards/iso8601.htm](#http://www.iso.org/iso/home/standards/iso8601.htm) |
+| [6] | "RFC 7946: The GeoJSON Format" - [https://tools.ietf.org/html/rfc7946](#https://tools.ietf.org/html/rfc7946)|
