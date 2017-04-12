@@ -1,10 +1,14 @@
-
-
 # UAV/Operator Flight Declaration Exchange Protocol
 
 _A protocol designed to facilitate the secure exchange of flight situation data between UTM Providers, 
 while allowing each UTM Provider to retain ownership of their customer data._
 
+**ATTRIBUTION NOTICE**
+| Author | Company | |
+| --- | --- | -- |
+| N. Kidd | Altitude Angel | Original author |
+| R. Garfoot | Altitude Angel | Contributor |
+| R. Parker | Altitude Angel | Contributor |
 
 **REVISION HISTORY**
 
@@ -15,8 +19,6 @@ while allowing each UTM Provider to retain ownership of their customer data._
 | 0.2.0-draft | 16/01/17 | Version 0.2 ready for public release and comment |
 
 **LICENSE**
-
- Copyright 2017 Altitude Angel Limited.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -31,10 +33,10 @@ while allowing each UTM Provider to retain ownership of their customer data._
 
 ## 1 Background
 
-Altitude Angel is committed to the advancement and adoption of technical systems and standards 
+The Global UTM Association is committed to the advancement and adoption of technical systems and standards 
 which promote the safe integration of drones into the airspace.
 
-As part of our commitment to this goal, we have prepared this protocol specification to solve a 
+As part of the association's commitment to this goal, we have prepared this protocol specification to solve a 
 vital safety problem affecting all UTM Providers today: the ability to securely share important 
 safety information with each other, while retaining strict privacy controls.
 
