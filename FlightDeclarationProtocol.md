@@ -4,6 +4,7 @@ _A protocol designed to facilitate the secure exchange of flight situation data 
 while allowing each UTM Provider to retain ownership of their customer data._
 
 **ATTRIBUTION NOTICE**
+
 | Author | Company | |
 | --- | --- | -- |
 | N. Kidd | Altitude Angel | Original author |
