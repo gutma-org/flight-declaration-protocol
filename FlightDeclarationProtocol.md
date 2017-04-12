@@ -206,7 +206,7 @@ All version numbers must follow the Semantic Versioning 2.0.0 standard [[4]](#Re
 > 
 > _Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format._
 
-### 5.3 Dates &amp; Times
+### 5.3 Dates & Times
 
 Dates and times will follow the **ISO-8601** **[[5]](#Ref-5)** formatting standard. Local times are not supported; all times 
 must be in UTC or have a time zone offset specified.
