@@ -12,14 +12,6 @@ while allowing each UTM Provider to retain ownership of their customer data._
 | R. Parker | Altitude Angel | Contributor |
 
 
-**REVISION HISTORY**
-
-| Version | Date | Comments |
-| --- | --- | --- |
-| 0.1.0-draft | 01/09/16 | Initial draft specification by Altitude Angel |
-| 0.1.1-draft | 03/11/16 | Updates to terminology and inclusion of example message flows |
-| 0.2.0-draft | 16/01/17 | Version 0.2 ready for public release and comment |
-
 **LICENSE**
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -629,7 +621,7 @@ after the return leg. This drone is expecting to provide telemetry during the fl
         "errorDescription": "Server doesn't require sender to retry",
         "shouldRetry": false
     }
-
+    
 ## 8 References
 |||
 | --- | --- |
@@ -639,3 +631,12 @@ after the return leg. This drone is expecting to provide telemetry during the fl
 | [4] | "Semantic Versioning 2.0.0" - [http://semver.org/](#http://semver.org/) |
 | [5] | "ISO 8601 - Date and time format" - [http://www.iso.org/iso/home/standards/iso8601.htm](#http://www.iso.org/iso/home/standards/iso8601.htm) |
 | [6] | "RFC 7946: The GeoJSON Format" - [https://tools.ietf.org/html/rfc7946](#https://tools.ietf.org/html/rfc7946)|
+
+
+**REVISION HISTORY**
+
+| Version | Date | Comments |
+| --- | --- | --- |
+| 0.1.0-draft | 01/09/16 | Initial draft specification by Altitude Angel |
+| 0.1.1-draft | 03/11/16 | Updates to terminology and inclusion of example message flows |
+| 0.2.0-draft | 16/01/17 | Version 0.2 ready for public release and comment |
