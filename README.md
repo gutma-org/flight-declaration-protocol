@@ -5,4 +5,4 @@ The Flight Declaration protocol aims to facilitate the secure exchange of flight
 ## Get involved
 
 External contributions are welcome. Each proposal will be carefully considered by the Project Management Committee.
-You can reach out to the committee by writing to flight-declaration-pmc@utm.aero
+Please submit your pull requests and comments directly on Bitbucket. For any further information, contact info@gutma.org
